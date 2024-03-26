@@ -1,0 +1,15 @@
+{
+  "name": "ts",
+  "packageManager": "yarn@4.1.1",
+  "scripts": {
+    "start": "ts-node ./revert-barrel-imports.ts"
+  },
+  "dependencies": {
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.2"
+  }
+}
