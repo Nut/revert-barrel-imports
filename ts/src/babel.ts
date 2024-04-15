@@ -13,6 +13,8 @@ import {
 } from "@babel/types";
 import * as fs from "fs";
 
+const { importDeclarationVisitor } = require("./plugin/barrel");
+
 const input = fs.readFileSync(
   "./../test-files/components/test.component.tsx",
   "utf8"
@@ -25,17 +27,19 @@ function transform(code: string): string {
   });
 
   traverse(ast, {
-    ImportDeclaration(path) {
+    ImportDeclaration(path, state) {
       // @ts-ignore
       if (path.node.__processed) return;
 
-      console.log(path.node.loc);
+      importDeclarationVisitor(path, {
+        filename: "./../test-files/components/test.component.tsx",
+      });
 
-      path.replaceWithMultiple(
-        path.node.specifiers.map((specifier) =>
-          toDirectImport(path.node, specifier)
-        )
-      );
+      // path.replaceWithMultiple(
+      //   path.node.specifiers.map((specifier) =>
+      //     toDirectImport(path.node, specifier)
+      //   )
+      // );
     },
   });
 
